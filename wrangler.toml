@@ -1,0 +1,14 @@
+name = "instagram-mcp-community"
+main = "src/worker.ts"
+compatibility_date = "2025-01-01"
+workers_dev = true
+
+[[routes]]
+pattern = "instagram-mcp-community.node2flow.net"
+custom_domain = true
+
+[placement]
+mode = "smart"
+
+[observability]
+enabled = true

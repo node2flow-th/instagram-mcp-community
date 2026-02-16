@@ -1,0 +1,14 @@
+{
+  "type": "object",
+  "properties": {
+    "INSTAGRAM_ACCESS_TOKEN": {
+      "type": "string",
+      "description": "Instagram/Facebook User Access Token with instagram_* permissions"
+    },
+    "INSTAGRAM_ACCOUNT_ID": {
+      "type": "string",
+      "description": "Instagram Business Account ID (optional — auto-detected from token)"
+    }
+  },
+  "required": ["INSTAGRAM_ACCESS_TOKEN"]
+}
