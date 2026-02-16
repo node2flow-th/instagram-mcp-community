@@ -56,6 +56,17 @@ export function handleToolCall(
     case 'ig_hide_comment':
       return client.hideComment(args.comment_id as string, args.hide as boolean);
 
+    case 'ig_list_replies':
+      return client.listReplies(args.comment_id as string, args.limit as number | undefined);
+
+    // ========== Discovery ==========
+    case 'ig_discover_user':
+      return client.discoverUser(args.account_id as string, args.username as string, args.fields as string | undefined);
+
+    // ========== Content Publishing Limit ==========
+    case 'ig_get_content_publishing_limit':
+      return client.getContentPublishingLimit(args.account_id as string);
+
     // ========== Stories ==========
     case 'ig_list_stories':
       return client.listStories(args.account_id as string);
@@ -213,8 +224,10 @@ export function createServer(config?: InstagramMcpConfig) {
             account: 3,
             publishing: 4,
             media: 3,
-            comments: 5,
+            comments: 6,
             stories: 2,
+            discovery: 1,
+            content_publishing_limit: 1,
             hashtags: 3,
             mentions: 2,
           },

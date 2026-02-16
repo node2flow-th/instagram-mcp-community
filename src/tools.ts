@@ -175,7 +175,7 @@ export const TOOLS: MCPToolDefinition[] = [
     },
   },
 
-  // ========== Comments (5) ==========
+  // ========== Comments (6) ==========
   {
     name: 'ig_list_comments',
     description:
@@ -242,6 +242,21 @@ export const TOOLS: MCPToolDefinition[] = [
         hide: { type: 'boolean', description: 'true to hide, false to unhide' },
       },
       required: ['comment_id', 'hide'],
+    },
+  },
+
+  {
+    name: 'ig_list_replies',
+    description:
+      'List replies (threaded comments) under a specific comment. Returns reply text, author, timestamp, and like count.',
+    annotations: { title: 'List Replies', readOnlyHint: true, destructiveHint: false, openWorldHint: true },
+    inputSchema: {
+      type: 'object',
+      properties: {
+        comment_id: { type: 'string', description: 'Parent comment ID to get replies from' },
+        limit: { type: 'number', description: 'Number of replies to return (default: 25)' },
+      },
+      required: ['comment_id'],
     },
   },
 
@@ -317,6 +332,38 @@ export const TOOLS: MCPToolDefinition[] = [
         fields: { type: 'string', description: 'Comma-separated fields' },
       },
       required: ['hashtag_id', 'account_id'],
+    },
+  },
+
+  // ========== Discovery (1) ==========
+  {
+    name: 'ig_discover_user',
+    description:
+      'Look up another Instagram Business/Creator account by username. Returns their public profile info, media count, followers, and recent media. Uses the Business Discovery API.',
+    annotations: { title: 'Discover User', readOnlyHint: true, destructiveHint: false, openWorldHint: true },
+    inputSchema: {
+      type: 'object',
+      properties: {
+        account_id: { type: 'string', description: 'Your Instagram Business Account ID (required to use Business Discovery)' },
+        username: { type: 'string', description: 'Instagram username to look up (without @)' },
+        fields: { type: 'string', description: 'Comma-separated fields (default: username,name,biography,followers_count,follows_count,media_count,profile_picture_url,website)' },
+      },
+      required: ['account_id', 'username'],
+    },
+  },
+
+  // ========== Content Publishing Limit (1) ==========
+  {
+    name: 'ig_get_content_publishing_limit',
+    description:
+      'Check the content publishing rate limit for an account. Returns quota usage and remaining posts allowed within the current window. Instagram allows 50 posts per 24 hours.',
+    annotations: { title: 'Publishing Limit', readOnlyHint: true, destructiveHint: false, openWorldHint: false },
+    inputSchema: {
+      type: 'object',
+      properties: {
+        account_id: { type: 'string', description: 'Instagram Business Account ID' },
+      },
+      required: ['account_id'],
     },
   },
 

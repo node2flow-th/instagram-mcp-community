@@ -70,7 +70,9 @@ The `instagram_business_account.id` is your Instagram Account ID.
 | **Account** (3) | `ig_get_account`, `ig_get_account_insights`, `ig_list_media` | Profile info, analytics, media list |
 | **Publishing** (4) | `ig_publish_photo`, `ig_publish_carousel`, `ig_publish_reel`, `ig_publish_story` | Create posts, reels, carousels, stories |
 | **Media** (3) | `ig_get_media`, `ig_get_media_insights`, `ig_get_children` | Media details, analytics, carousel items |
-| **Comments** (5) | `ig_list_comments`, `ig_get_comment`, `ig_reply_comment`, `ig_delete_comment`, `ig_hide_comment` | Comment management + moderation |
+| **Comments** (6) | `ig_list_comments`, `ig_get_comment`, `ig_reply_comment`, `ig_delete_comment`, `ig_hide_comment`, `ig_list_replies` | Comment management + moderation + replies |
+| **Discovery** (1) | `ig_discover_user` | Look up other Business/Creator accounts |
+| **Limit** (1) | `ig_get_content_publishing_limit` | Check publishing rate limit (50/day) |
 | **Stories** (2) | `ig_list_stories`, `ig_get_story_insights` | Active stories + analytics |
 | **Hashtags** (3) | `ig_search_hashtag`, `ig_get_hashtag_recent`, `ig_get_hashtag_top` | Hashtag research + discovery |
 | **Mentions** (2) | `ig_list_tags`, `ig_get_mentioned_media` | Tagged and mentioned media |

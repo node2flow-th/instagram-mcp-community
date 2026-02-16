@@ -178,7 +178,7 @@ export class InstagramClient {
     return res.data || [];
   }
 
-  // ========== Comments (5) ==========
+  // ========== Comments (6) ==========
 
   async listComments(mediaId: string, limit?: number): Promise<InstagramComment[]> {
     const params: Record<string, string> = { fields: 'id,text,username,timestamp,like_count,hidden' };
@@ -202,6 +202,32 @@ export class InstagramClient {
 
   async hideComment(commentId: string, hide: boolean): Promise<{ success: boolean }> {
     return this.request<{ success: boolean }>(commentId, 'POST', { hide });
+  }
+
+  async listReplies(commentId: string, limit?: number): Promise<InstagramComment[]> {
+    const params: Record<string, string> = { fields: 'id,text,username,timestamp,like_count' };
+    if (limit) params.limit = String(limit);
+    const res = await this.request<GraphApiResponse<InstagramComment>>(`${commentId}/replies`, 'GET', undefined, params);
+    return res.data || [];
+  }
+
+  // ========== Discovery (1) ==========
+
+  async discoverUser(accountId: string, username: string, fields?: string): Promise<Record<string, unknown>> {
+    const discoveryFields = fields || 'username,name,biography,followers_count,follows_count,media_count,profile_picture_url,website';
+    const params: Record<string, string> = {
+      fields: `business_discovery.fields(${discoveryFields}){username}`,
+    };
+    // Business Discovery endpoint: GET /{account_id}?fields=business_discovery.fields(...)
+    const fullFields = `business_discovery.fields(${discoveryFields})`;
+    return this.request<Record<string, unknown>>(accountId, 'GET', undefined, { fields: fullFields, username });
+  }
+
+  // ========== Content Publishing Limit (1) ==========
+
+  async getContentPublishingLimit(accountId: string): Promise<Record<string, unknown>> {
+    const params: Record<string, string> = { fields: 'config,quota_usage' };
+    return this.request<Record<string, unknown>>(`${accountId}/content_publishing_limit`, 'GET', undefined, params);
   }
 
   // ========== Stories (2) ==========
